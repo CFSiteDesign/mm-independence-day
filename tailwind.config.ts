@@ -1,112 +1,89 @@
-import type { Config } from "tailwindcss";
+import type { Config } from 'tailwindcss'
+import animate from 'tailwindcss-animate'
 
-export default {
-  darkMode: ["class"],
+const config: Config = {
+  darkMode: ['class'],
   content: [
-    "./pages/**/*.{ts,tsx}",
-    "./components/**/*.{ts,tsx}",
-    "./app/**/*.{ts,tsx}",
-    "./src/**/*.{ts,tsx}",
+    './index.html',
+    './src/**/*.{js,ts,jsx,tsx}',
   ],
-  prefix: "",
   theme: {
     container: {
       center: true,
-      padding: "2rem",
+      padding: '1rem',
       screens: {
-        "2xl": "1400px",
+        '2xl': '1400px',
       },
     },
     extend: {
       fontFamily: {
-        sans: ["Inter", "sans-serif"],
-        display: ["Bebas Neue", "sans-serif"],
+        sans: ['Inter', 'sans-serif'],
+        display: ['Bebas Neue', 'sans-serif'],
       },
       colors: {
-        border: "hsl(var(--border))",
-        input: "hsl(var(--input))",
-        ring: "hsl(var(--ring))",
-        background: "hsl(var(--background))",
-        foreground: "hsl(var(--foreground))",
-        primary: {
-          DEFAULT: "hsl(var(--primary))",
-          foreground: "hsl(var(--primary-foreground))",
-        },
-        secondary: {
-          DEFAULT: "hsl(var(--secondary))",
-          foreground: "hsl(var(--secondary-foreground))",
-        },
-        destructive: {
-          DEFAULT: "hsl(var(--destructive))",
-          foreground: "hsl(var(--destructive-foreground))",
-        },
-        muted: {
-          DEFAULT: "hsl(var(--muted))",
-          foreground: "hsl(var(--muted-foreground))",
-        },
-        accent: {
-          DEFAULT: "hsl(var(--accent))",
-          foreground: "hsl(var(--accent-foreground))",
+        background: 'hsl(var(--background))',
+        foreground: 'hsl(var(--foreground))',
+        card: {
+          DEFAULT: 'hsl(var(--card))',
+          foreground: 'hsl(var(--card-foreground))',
         },
         popover: {
-          DEFAULT: "hsl(var(--popover))",
-          foreground: "hsl(var(--popover-foreground))",
+          DEFAULT: 'hsl(var(--popover))',
+          foreground: 'hsl(var(--popover-foreground))',
         },
-        card: {
-          DEFAULT: "hsl(var(--card))",
-          foreground: "hsl(var(--card-foreground))",
+        muted: {
+          DEFAULT: 'hsl(var(--muted))',
+          foreground: 'hsl(var(--muted-foreground))',
         },
-        patriot: {
-          red: "#CC2200",
-          navy: "#1B2A5C",
-          cream: "#F5EDD8",
+        accent: {
+          DEFAULT: 'hsl(var(--accent))',
+          foreground: 'hsl(var(--accent-foreground))',
+        },
+        destructive: {
+          DEFAULT: 'hsl(var(--destructive))',
+          foreground: 'hsl(var(--destructive-foreground))',
+        },
+        primary: {
+          DEFAULT: 'hsl(var(--primary))',
+          foreground: 'hsl(var(--primary-foreground))',
+        },
+        secondary: {
+          DEFAULT: 'hsl(var(--secondary))',
+          foreground: 'hsl(var(--secondary-foreground))',
         },
       },
       borderRadius: {
-        lg: "var(--radius)",
-        md: "calc(var(--radius) - 2px)",
-        sm: "calc(var(--radius) - 4px)",
+        lg: 'calc(var(--radius) + 0.5rem)',
+        md: 'calc(var(--radius) + 0.25rem)',
+        sm: 'calc(var(--radius))',
       },
       keyframes: {
-        "accordion-down": {
-          from: { height: "0" },
-          to: { height: "var(--radix-accordion-content-height)" },
+        'accordion-down': {
+          from: { height: '0' },
+          to: { height: 'var(--radix-accordion-content-height)' },
         },
-        "accordion-up": {
-          from: { height: "var(--radix-accordion-content-height)" },
-          to: { height: "0" },
+        'accordion-up': {
+          from: { height: 'var(--radix-accordion-content-height)' },
+          to: { height: '0' },
         },
-        float: {
-          "0%, 100%": { transform: "translateY(0px) rotate(0deg)" },
-          "33%": { transform: "translateY(-12px) rotate(3deg)" },
-          "66%": { transform: "translateY(-6px) rotate(-2deg)" },
+        'float-up': {
+          '0%, 100%': { transform: 'translateY(0) rotate(var(--float-rotate, 3deg))' },
+          '50%': { transform: 'translateY(-10px) rotate(var(--float-rotate, 3deg))' },
         },
-        "float-reverse": {
-          "0%, 100%": { transform: "translateY(0px) rotate(0deg)" },
-          "33%": { transform: "translateY(10px) rotate(-3deg)" },
-          "66%": { transform: "translateY(5px) rotate(2deg)" },
-        },
-        "falling-star": {
-          "0%": { transform: "translateY(-100px) rotate(0deg)", opacity: "1" },
-          "100%": {
-            transform: "translateY(110vh) rotate(360deg)",
-            opacity: "0.3",
-          },
-        },
-        spark: {
-          "0%, 100%": { opacity: "0.4", transform: "scale(1)" },
-          "50%": { opacity: "1", transform: "scale(1.15)" },
+        'float-down': {
+          '0%, 100%': { transform: 'translateY(0) rotate(var(--float-rotate, 3deg))' },
+          '50%': { transform: 'translateY(10px) rotate(var(--float-rotate, 3deg))' },
         },
       },
       animation: {
-        "accordion-down": "accordion-down 0.2s ease-out",
-        "accordion-up": "accordion-up 0.2s ease-out",
-        float: "float 4s infinite ease-in-out",
-        "float-reverse": "float-reverse 5s infinite ease-in-out",
-        "falling-star": "falling-star linear infinite",
-        spark: "spark 2s infinite ease-in-out",
+        'accordion-down': 'accordion-down 0.2s ease-out',
+        'accordion-up': 'accordion-up 0.2s ease-out',
+        'float-up': 'float-up 3s ease-in-out infinite',
+        'float-down': 'float-down 3s ease-in-out infinite',
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
-} satisfies Config;
+  plugins: [animate],
+}
+
+export default config

@@ -1,67 +1,85 @@
-import ScatteredElements from "./ScatteredElements";
+import { useState, useEffect } from 'react'
+import { getAsset } from '@/lib/images'
+import ScatteredStars from './ScatteredStars'
 
 export default function HeroSection() {
+  const [heroLogo, setHeroLogo] = useState<string | undefined>(undefined)
+  const [bgImage, setBgImage] = useState<string | undefined>(undefined)
+
+  useEffect(() => {
+    setHeroLogo(getAsset('hero-logo.png'))
+    setBgImage(getAsset('bg-main.png'))
+  }, [])
+
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden">
-      {/* Background image */}
-      <div
-        className="absolute inset-0 bg-cover bg-bottom bg-no-repeat"
-        style={{ backgroundImage: "url(/images/bg-main.png)" }}
-      />
+    <section className="relative w-full bg-white min-h-screen">
+      <ScatteredStars />
 
-      {/* Stars overlay scattered across full section */}
-      <img
-        src="/images/el-stars.png"
-        alt=""
-        aria-hidden="true"
-        className="absolute inset-0 w-full h-full object-cover pointer-events-none opacity-60"
-        style={{ zIndex: 1 }}
-      />
+      <div className="flex h-screen">
+        {/* Left column */}
+        <div className="w-full md:w-1/2 bg-[#CC2200] flex flex-col justify-center px-4 md:px-8 py-8 md:py-0 border-r-4 border-black">
+          <div className="space-y-4">
+            {/* Brand */}
+            <div className="text-2xl md:text-4xl font-bold text-white">
+              MAD MONKEY
+            </div>
 
-      {/* Scattered bolts & angular shapes */}
-      <div className="absolute inset-0 overflow-hidden" style={{ zIndex: 2 }}>
-        <ScatteredElements />
-      </div>
+            {/* Date badge */}
+            <div className="inline-flex items-center gap-2 bg-white text-black px-4 py-2 border-2 border-black rounded-none w-fit font-bold">
+              <span>July 4th</span>
+              <span>🎆</span>
+            </div>
 
-      {/* Content */}
-      <div className="relative flex flex-col items-center text-center px-6 py-24 max-w-4xl mx-auto" style={{ zIndex: 10 }}>
-        {/* Date badge */}
-        <div className="mb-8 inline-flex items-center gap-2 px-5 py-2 bg-[#1B2A5C] text-white font-black text-xs tracking-[0.25em] uppercase brutalist-border brutalist-shadow">
-          🎆 JULY 4TH, 2026 — LET'S GET IT
+            {/* Hero logo */}
+            <div className="pt-4">
+              {heroLogo ? (
+                <img
+                  src={heroLogo}
+                  alt="4th of July"
+                  className="w-full max-w-xs"
+                />
+              ) : (
+                <div className="text-4xl md:text-5xl font-bold text-white text-shadow-md">
+                  4TH OF JULY
+                </div>
+              )}
+            </div>
+
+            {/* Tagline */}
+            <p className="text-white text-shadow-xs text-base md:text-lg max-w-sm font-semibold">
+              Stars, stripes, and shots across Southeast Asia. One night. Every hostel. Zero apologies.
+            </p>
+
+            {/* CTA button */}
+            <button className="mt-6 px-6 py-3 bg-white text-[#CC2200] font-bold border-2 border-black rounded-none shadow-sm hover:shadow-md transition-all duration-200">
+              GET EARLY ACCESS 🇺🇸
+            </button>
+          </div>
         </div>
 
-        {/* Hero logo */}
-        <img
-          src="/images/hero-logo.png"
-          alt="4th of July"
-          className="w-full max-w-sm md:max-w-md mb-8 drop-shadow-2xl"
-        />
+        {/* Right column */}
+        <div className="hidden md:flex w-1/2 bg-white relative overflow-hidden border-l-4 border-black">
+          {bgImage ? (
+            <img
+              src={bgImage}
+              alt="4th of July background"
+              className="w-full h-full object-cover object-bottom"
+            />
+          ) : (
+            <div className="absolute inset-0 radial-gradient-light" />
+          )}
 
-        {/* Headline */}
-        <h1 className="font-display text-5xl md:text-7xl lg:text-8xl text-[#1B2A5C] leading-none mb-4 tracking-tight">
-          BORN FREE.<br />PARTY HARD.
-        </h1>
+          {/* Badge 1 */}
+          <div className="absolute top-12 right-12 bg-[#1B2A5C] text-white px-4 py-2 border-2 border-black rounded-none shadow-sm transform rotate-12 font-bold">
+            🇺🇸 ALL IN
+          </div>
 
-        {/* Subheading */}
-        <p className="text-base md:text-lg font-bold text-gray-800 mb-10 max-w-2xl leading-relaxed">
-          Mad Monkey lights up Southeast Asia for the biggest 4th of July blowout on the road.
-          Stars, stripes, shots — and zero apologies. <span className="text-[#CC2200]">All in. 🇺🇸</span>
-        </p>
-
-        {/* CTA */}
-        <a
-          href="#events"
-          className="inline-block px-10 py-4 bg-[#CC2200] text-white font-black text-lg uppercase tracking-[0.2em] brutalist-border brutalist-shadow brutalist-shadow-hover transition-all"
-        >
-          GET EARLY ACCESS 🇺🇸
-        </a>
-      </div>
-
-      {/* Scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 opacity-50" style={{ zIndex: 10 }}>
-        <span className="text-xs font-black uppercase tracking-widest text-[#1B2A5C]">Scroll</span>
-        <div className="w-px h-8 bg-[#1B2A5C]" />
+          {/* Badge 2 */}
+          <div className="absolute bottom-32 left-8 bg-[#1B2A5C] text-white px-4 py-2 border-2 border-black rounded-none shadow-sm transform -rotate-6 font-bold">
+            Independence Day 2026
+          </div>
+        </div>
       </div>
     </section>
-  );
+  )
 }

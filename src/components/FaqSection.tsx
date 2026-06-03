@@ -1,82 +1,109 @@
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
+import { useState } from 'react'
+import ScatteredStars from './ScatteredStars'
 
-const faqs = [
+interface FaqItem {
+  id: string
+  question: string
+  answer: string
+}
+
+const FAQ_ITEMS: FaqItem[] = [
   {
-    q: "What's included in my 4th of July ticket?",
-    a: "Your ticket gets you through the door, a welcome shot on arrival, access to all themed events at your hostel, and a night you'll actually remember — or won't. Depends how hard you go. Check your specific location for the full event lineup.",
+    id: 'tickets-included',
+    question: 'What does the ticket include?',
+    answer:
+      'Your ticket gets you through the door, a welcome shot on arrival, and access to all themed events at your hostel. Check your specific location for the full lineup — fireworks, BBQ, and free flow vary by spot.',
   },
   {
-    q: "Do I have to be American?",
-    a: "Hell no. The 4th of July at Mad Monkey is for anyone who loves a good time, a great atmosphere, and a reason to go full send. Bring your flag, borrow ours — all nationalities welcome.",
+    id: 'accommodation-tickets',
+    question: "I'm staying at Mad Monkey. Do I still need a ticket?",
+    answer:
+      "Yes. Even if you're sleeping here, the 4th of July party is a ticketed event. It guarantees you're part of the madness — not watching from the dorm.",
   },
   {
-    q: "How long does the party run?",
-    a: "All. Night. Long. Kick-off times vary by location, but expect fireworks, BBQ, free flow, and live DJs well into the early hours. No curfew on freedom.",
+    id: 'non-americans',
+    question: "Do I have to be American?",
+    answer:
+      "Hell no. The 4th of July at Mad Monkey is for anyone who loves a good time. Bring your flag, borrow ours — all nationalities welcome. Freedom has no passport.",
   },
   {
-    q: "Can I buy tickets for multiple locations?",
-    a: "Absolutely — each location runs its own event on July 4th. Buy a ticket for each hostel you want to hit. Just check the timing at each spot so you're not trying to be in two places at once. (We've seen people try. It never works.)",
+    id: 'multiple-locations',
+    question: 'Can I attend multiple locations?',
+    answer:
+      "Each ticket is for a single location on July 4th. You can't be in two places at once — so pick your hostel, commit, and go full send.",
   },
   {
-    q: "What's your refund policy?",
-    a: "No refunds — but tickets are fully transferable. If you can't make it, pass it on to a mate who can. Born free means free to hand over your ticket.",
+    id: 'transfer-policy',
+    question: 'Can I transfer my ticket?',
+    answer:
+      "Tickets are fully transferable — no refunds. If you can't make it, pass it to a friend. Born free means free to hand it over.",
   },
-];
+]
+
+function FaqItem({
+  item,
+  isOpen,
+  onToggle,
+}: {
+  item: FaqItem
+  isOpen: boolean
+  onToggle: () => void
+}) {
+  return (
+    <div className="border-b-2 border-black py-4 md:py-6">
+      <button
+        onClick={onToggle}
+        className="w-full flex justify-between items-center gap-4 text-left hover:opacity-80 transition-opacity"
+      >
+        <h3 className="text-lg md:text-xl font-bold uppercase flex-1">
+          {item.question}
+        </h3>
+        <span
+          className={`text-2xl md:text-3xl font-bold transition-transform duration-300 flex-shrink-0 ${
+            isOpen ? 'rotate-45' : 'rotate-0'
+          }`}
+        >
+          +
+        </span>
+      </button>
+
+      {isOpen && (
+        <div className="mt-4 md:mt-6 text-base md:text-lg font-medium text-gray-700">
+          {item.answer}
+        </div>
+      )}
+    </div>
+  )
+}
 
 export default function FaqSection() {
+  const [openId, setOpenId] = useState<string | null>(null)
+
   return (
-    <section className="py-20 px-4 bg-white border-t-4 border-black">
+    <section className="relative w-full bg-white py-12 md:py-24 px-4 md:px-8">
+      <ScatteredStars />
+
       <div className="max-w-3xl mx-auto">
-        {/* Header */}
-        <div className="mb-12 text-center">
-          <span className="inline-block mb-4 px-4 py-1 bg-[#1B2A5C] text-white font-black text-xs tracking-[0.3em] uppercase brutalist-border">
-            GOT QUESTIONS?
-          </span>
-          <h2 className="font-display text-5xl md:text-7xl text-[#1B2A5C] leading-none">
-            WE GOT ANSWERS
+        <div className="mb-12 md:mb-16">
+          <h2 className="text-3xl md:text-5xl font-bold uppercase tracking-tight mb-4">
+            Got Questions?
           </h2>
-        </div>
-
-        {/* Accordion */}
-        <div className="brutalist-border brutalist-shadow">
-          <Accordion type="single" collapsible className="w-full">
-            {faqs.map((faq, i) => (
-              <AccordionItem
-                key={i}
-                value={`item-${i}`}
-                className={i === 0 ? "border-t-0" : ""}
-              >
-                <AccordionTrigger className="px-6 text-[#1B2A5C] text-sm md:text-base hover:text-[#CC2200]">
-                  {faq.q}
-                </AccordionTrigger>
-                <AccordionContent className="px-6">
-                  {faq.a}
-                </AccordionContent>
-              </AccordionItem>
-            ))}
-          </Accordion>
-        </div>
-
-        {/* Bottom CTA */}
-        <div className="mt-12 text-center">
-          <p className="text-gray-500 font-bold text-sm mb-4 uppercase tracking-widest">
-            Still have questions?
+          <p className="text-lg md:text-xl font-semibold">
+            Answers to the most common questions about tickets and events
           </p>
-          <a
-            href="https://madmonkeyhostels.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-block px-8 py-3 bg-[#1B2A5C] text-white font-black text-sm uppercase tracking-widest brutalist-border brutalist-shadow brutalist-shadow-hover"
-          >
-            HIT US UP →
-          </a>
+        </div>
+
+        <div className="border-t-4 border-black">
+          {FAQ_ITEMS.map((item) => (
+            <FaqItem
+              key={item.id}
+              item={item}
+              isOpen={openId === item.id}
+              onToggle={() => setOpenId(openId === item.id ? null : item.id)}
+            />
+          ))}
         </div>
       </div>
     </section>
-  );
+  )
 }
