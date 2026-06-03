@@ -3,6 +3,7 @@ import ScatteredStars from '@/components/ScatteredStars'
 
 const heroLogo = getAsset('hero-logo.png')
 const bgImage = getAsset('bg-main.png')
+const heroPhoto = getAsset('hero-photo.png')
 const madMonkeyLogo = getAsset('mad-monkey-logo.svg')
 const floatingEl = getAsset('el-bolt.png')
 
@@ -81,18 +82,27 @@ const HeroSection = () => {
         </a>
       </div>
 
-      {/* Right — background image */}
+      {/* Right — bg-main.png behind, hero photo in the framed box */}
       <div
-        className="flex-1 relative flex items-center justify-center min-h-[300px] md:min-h-0"
+        className="flex-1 relative flex items-center justify-center min-h-[300px] md:min-h-0 overflow-hidden"
         style={{ backgroundColor: '#FFFFFF' }}
       >
+        {/* Full-cover background */}
+        {bgImage && (
+          <img
+            src={bgImage}
+            alt=""
+            className="absolute inset-0 w-full h-full object-cover object-bottom pointer-events-none"
+          />
+        )}
+
         <div className="relative w-4/5 aspect-square md:aspect-auto md:h-4/5 flex items-center justify-center">
-          {bgImage ? (
+          {heroPhoto ? (
             <img
-              src={bgImage}
+              src={heroPhoto}
               alt="4th of July"
               className="w-full h-full object-cover border-2 border-border brutalist-shadow rotate-3"
-              style={{ objectPosition: '50% 80%' }}
+              style={{ objectPosition: '50% 30%' }}
             />
           ) : (
             <div
