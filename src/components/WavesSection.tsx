@@ -2,33 +2,33 @@ import { useEffect, useRef, useState } from 'react'
 import ScatteredStars from '@/components/ScatteredStars'
 import { getAsset } from '@/lib/images'
 
-const cardFireworks = getAsset('card-fireworks.png')
-const cardBbq = getAsset('card-bbq.png')
 const cardFreeflow = getAsset('card-freeflow.png')
+const cardDjs = getAsset('card-djs.png')
+const cardBoat = getAsset('card-boat.png')
 
 const CARDS = [
   {
-    image: cardFireworks,
-    title: 'Fireworks Spectacular',
+    image: cardFreeflow,
+    title: 'Free Flow',
     description:
-      "The sky's our canvas and we paint it loud. Our rooftop finale will rattle your chest and blow your mind.",
-    badge: 'Blow It Up',
+      "Drinks on tap, no last call. Keep the cups full and the vibes flowing from sundown to sunrise.",
+    badge: 'Pour It Up',
     rotation: 'rotate-2',
   },
   {
-    image: cardBbq,
-    title: 'Freedom BBQ',
+    image: cardDjs,
+    title: 'Live DJs',
     description:
-      "Grills fired up, plates piled high. All-American cookout energy, Southeast Asia style — no holding back.",
-    badge: 'Fire It Up',
+      "Our DJs are dropping sets right up until the bar closes. Front and centre early — once the music stops, it stops.",
+    badge: 'Turn It Up',
     rotation: '-rotate-2',
   },
   {
-    image: cardFreeflow,
-    title: 'Stars & Stripes Free Flow',
+    image: cardBoat,
+    title: 'Boat Party',
     description:
-      "Drinks flow free until the stars come out. Red, white, and brewed. Keep your cup up.",
-    badge: 'Pour It Up',
+      "Take the party out to sea. Stars above, water below, and zero excuses to stop dancing.",
+    badge: 'All Aboard',
     rotation: '-rotate-1',
   },
 ]
