@@ -1,0 +1,113 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Bebas+Neue&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 38 50% 91%;
+    --foreground: 0 0% 5%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 5%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 5%;
+    --primary: 5 100% 40%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 225 54% 23%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 38 30% 85%;
+    --muted-foreground: 0 0% 45%;
+    --accent: 5 90% 50%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 12%;
+    --input: 0 0% 12%;
+    --ring: 5 100% 40%;
+    --radius: 0rem;
+  }
+
+  .dark {
+    --background: 225 54% 8%;
+    --foreground: 38 50% 91%;
+    --card: 225 54% 12%;
+    --card-foreground: 38 50% 91%;
+    --popover: 225 54% 12%;
+    --popover-foreground: 38 50% 91%;
+    --primary: 5 90% 50%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 225 40% 30%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 225 40% 18%;
+    --muted-foreground: 38 20% 65%;
+    --accent: 5 90% 50%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 225 30% 25%;
+    --input: 225 30% 25%;
+    --ring: 5 90% 50%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Inter', sans-serif;
+  }
+
+  ::selection {
+    background-color: #CC2200;
+    color: #ffffff;
+  }
+
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #F5EDD8;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #CC2200;
+    border-radius: 0;
+  }
+}
+
+@layer components {
+  .brutalist-border {
+    border: 3px solid #000;
+  }
+
+  .brutalist-shadow {
+    box-shadow: 6px 6px 0px #000;
+  }
+
+  .brutalist-shadow-hover {
+    transition: all 0.15s ease;
+  }
+
+  .brutalist-shadow-hover:hover {
+    box-shadow: 8px 8px 0px #000;
+    transform: translate(-2px, -2px);
+  }
+
+  .brutalist-shadow-red {
+    box-shadow: 6px 6px 0px #CC2200;
+  }
+
+  .brutalist-shadow-red-hover:hover {
+    box-shadow: 8px 8px 0px #CC2200;
+    transform: translate(-2px, -2px);
+  }
+
+  .font-display {
+    font-family: 'Bebas Neue', sans-serif;
+  }
+}
