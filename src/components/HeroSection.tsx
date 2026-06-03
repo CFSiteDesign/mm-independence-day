@@ -5,10 +5,12 @@ import ScatteredStars from './ScatteredStars'
 export default function HeroSection() {
   const [heroLogo, setHeroLogo] = useState<string | undefined>(undefined)
   const [bgImage, setBgImage] = useState<string | undefined>(undefined)
+  const [mmLogo, setMmLogo] = useState<string | undefined>(undefined)
 
   useEffect(() => {
     setHeroLogo(getAsset('hero-logo.png'))
     setBgImage(getAsset('bg-main.png'))
+    setMmLogo(getAsset('mad-monkey-logo.svg'))
   }, [])
 
   return (
@@ -17,12 +19,14 @@ export default function HeroSection() {
 
       <div className="flex h-screen">
         {/* Left column */}
-        <div className="w-full md:w-1/2 bg-[#CC2200] flex flex-col justify-center px-4 md:px-8 py-8 md:py-0 border-r-4 border-black">
+        <div className="w-full md:w-1/2 bg-[#1B2A5C] flex flex-col justify-center px-4 md:px-8 py-8 md:py-0 border-r-4 border-black">
           <div className="space-y-4">
             {/* Brand */}
-            <div className="text-2xl md:text-4xl font-bold text-white">
-              MAD MONKEY
-            </div>
+            {mmLogo ? (
+              <img src={mmLogo} alt="Mad Monkey" className="h-8 md:h-10 invert" />
+            ) : (
+              <div className="text-2xl md:text-4xl font-bold text-white">MAD MONKEY</div>
+            )}
 
             {/* Date badge */}
             <div className="inline-flex items-center gap-2 bg-white text-black px-4 py-2 border-2 border-black rounded-none w-fit font-bold">

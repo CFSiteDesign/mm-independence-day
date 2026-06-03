@@ -1,6 +1,14 @@
+import { useState, useEffect } from 'react'
+import { getAsset } from '@/lib/images'
 import ScatteredStars from './ScatteredStars'
 
 export default function FooterSection() {
+  const [mmLogo, setMmLogo] = useState<string | undefined>(undefined)
+
+  useEffect(() => {
+    setMmLogo(getAsset('mad-monkey-logo.svg'))
+  }, [])
+
   return (
     <footer className="relative w-full bg-[#CC2200] border-t-4 border-black py-12 md:py-16 px-4 md:px-8">
       <ScatteredStars />
@@ -8,9 +16,11 @@ export default function FooterSection() {
       <div className="max-w-6xl mx-auto">
         {/* Brand */}
         <div className="mb-8 md:mb-12 flex justify-center">
-          <div className="text-2xl md:text-3xl font-bold text-white text-shadow-md">
-            MAD MONKEY
-          </div>
+          {mmLogo ? (
+            <img src={mmLogo} alt="Mad Monkey" className="h-10 md:h-12 invert" />
+          ) : (
+            <div className="text-2xl md:text-3xl font-bold text-white text-shadow-md">MAD MONKEY</div>
+          )}
         </div>
 
         {/* Social Links */}
