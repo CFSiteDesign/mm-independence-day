@@ -45,6 +45,10 @@
     border-color: hsl(var(--border));
   }
 
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
     @apply text-foreground font-sans;
     font-family: 'Inter', sans-serif;
