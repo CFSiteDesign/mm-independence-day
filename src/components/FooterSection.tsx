@@ -1,54 +1,56 @@
-import { useState, useEffect } from 'react'
 import { getAsset } from '@/lib/images'
-import ScatteredStars from './ScatteredStars'
 
-export default function FooterSection() {
-  const [mmLogo, setMmLogo] = useState<string | undefined>(undefined)
+const madMonkeyLogo = getAsset('mad-monkey-logo.svg')
 
-  useEffect(() => {
-    setMmLogo(getAsset('mad-monkey-logo.svg'))
-  }, [])
-
+const FooterSection = () => {
   return (
-    <footer className="relative w-full bg-[#CC2200] border-t-4 border-black py-12 md:py-16 px-4 md:px-8">
-      <ScatteredStars />
+    <footer
+      className="text-white py-8 md:py-12 px-4 md:px-16 border-t-4 border-divider"
+      style={{ backgroundColor: '#CC2200' }}
+    >
+      <div className="max-w-7xl mx-auto flex flex-col items-center gap-6 md:gap-8">
+        {madMonkeyLogo ? (
+          <img
+            src={madMonkeyLogo}
+            alt="Mad Monkey"
+            className="w-48 md:w-64"
+            style={{ filter: 'brightness(0) invert(1)' }}
+          />
+        ) : (
+          <div
+            className="font-black uppercase text-3xl md:text-4xl tracking-widest"
+            style={{ textShadow: '3px 3px 0 #8a1500' }}
+          >
+            MAD MONKEY
+          </div>
+        )}
 
-      <div className="max-w-6xl mx-auto">
-        {/* Brand */}
-        <div className="mb-8 md:mb-12 flex justify-center">
-          {mmLogo ? (
-            <img src={mmLogo} alt="Mad Monkey" className="h-10 md:h-12 invert" />
-          ) : (
-            <div className="text-2xl md:text-3xl font-bold text-white text-shadow-md">MAD MONKEY</div>
-          )}
-        </div>
-
-        {/* Social Links */}
-        <div className="mb-8 md:mb-12 flex flex-wrap justify-center gap-3 md:gap-4">
+        <div className="flex flex-wrap justify-center gap-3 md:gap-6">
           {[
-            { name: 'Instagram', url: 'https://instagram.com/madmonkeyhostels' },
-            { name: 'TikTok', url: 'https://tiktok.com/@madmonkeyhostels' },
-            { name: 'Facebook', url: 'https://facebook.com/madmonkeyhostels' },
-            { name: 'YouTube', url: 'https://youtube.com/madmonkeyhostels' },
-            { name: 'Website', url: 'https://madmonkeyhostels.com' },
+            { name: 'INSTAGRAM', url: 'https://www.instagram.com/madmonkeyhostels/' },
+            { name: 'TIKTOK', url: 'https://www.tiktok.com/@madmonkeyhostels' },
+            { name: 'FACEBOOK', url: 'https://www.facebook.com/MadMonkeyHostels' },
+            { name: 'YOUTUBE', url: 'https://www.youtube.com/channel/UCkUGlFdhp5Ndk68j_QRS1kw' },
+            { name: 'WEBSITE', url: 'https://madmonkeyhostels.com' },
           ].map((link) => (
             <a
               key={link.name}
               href={link.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="px-3 md:px-4 py-2 md:py-3 border-2 border-white text-white rounded-none font-semibold uppercase text-xs md:text-sm hover:text-[#CC2200] hover:bg-white transition-colors duration-200"
+              className="font-black uppercase text-xs md:text-sm hover:text-red-200 transition-colors border-2 border-white/40 px-3 md:px-4 py-1.5 hover:border-white"
             >
               {link.name}
             </a>
           ))}
         </div>
 
-        {/* Copyright */}
-        <div className="text-center text-xs md:text-sm font-semibold text-white opacity-80 tracking-widest">
+        <p className="text-[9px] md:text-[10px] font-bold uppercase tracking-[0.3em] md:tracking-[0.4em] text-white/50">
           © 2026 MAD MONKEY HOSTELS. 4TH OF JULY — BORN FREE, PARTY HARD.
-        </div>
+        </p>
       </div>
     </footer>
   )
 }
+
+export default FooterSection

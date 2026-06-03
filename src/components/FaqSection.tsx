@@ -1,109 +1,74 @@
 import { useState } from 'react'
-import ScatteredStars from './ScatteredStars'
 
-interface FaqItem {
-  id: string
-  question: string
-  answer: string
-}
-
-const FAQ_ITEMS: FaqItem[] = [
+const FAQS = [
   {
-    id: 'tickets-included',
-    question: 'What does the ticket include?',
-    answer:
-      'Your ticket gets you through the door, a welcome shot on arrival, and access to all themed events at your hostel. Check your specific location for the full lineup — fireworks, BBQ, and free flow vary by spot.',
+    q: "What's included in the ticket?",
+    a: "Entry to the main event at your chosen Mad Monkey. Just a heads up: check the specific event details for your location before you buy. Every Mad Monkey does things a little differently — fireworks, BBQ, and free flow vary depending on the local setup.",
   },
   {
-    id: 'accommodation-tickets',
-    question: "I'm staying at Mad Monkey. Do I still need a ticket?",
-    answer:
-      "Yes. Even if you're sleeping here, the 4th of July party is a ticketed event. It guarantees you're part of the madness — not watching from the dorm.",
+    q: "What if I'm already staying at Mad Monkey?",
+    a: "Love that for you — shortest commute to the party. But your bed doesn't get you in. You'll still need a ticket to get your wristband for the free flow and all the 4th of July highlights. Don't be that person sitting in a quiet dorm while the rest of the hostel is going mental downstairs.",
   },
   {
-    id: 'non-americans',
-    question: "Do I have to be American?",
-    answer:
-      "Hell no. The 4th of July at Mad Monkey is for anyone who loves a good time. Bring your flag, borrow ours — all nationalities welcome. Freedom has no passport.",
+    q: "How long does the party run?",
+    a: "All. Night. Long. Our DJs will be dropping sets right up until the bar closes. We're packing all that independence energy into one massive session — make sure you're front and centre early.",
   },
   {
-    id: 'multiple-locations',
-    question: 'Can I attend multiple locations?',
-    answer:
-      "Each ticket is for a single location on July 4th. You can't be in two places at once — so pick your hostel, commit, and go full send.",
+    q: "Can I book multiple locations?",
+    a: "We love the energy, but physics is a hater. These parties all happen on the same night, so you can't be in two places at once. Pick the Mad Monkey you want to be at on July 4th and commit!",
   },
   {
-    id: 'transfer-policy',
-    question: 'Can I transfer my ticket?',
-    answer:
-      "Tickets are fully transferable — no refunds. If you can't make it, pass it to a friend. Born free means free to hand it over.",
+    q: "Refund policy?",
+    a: "No refunds, but the tickets are fully transferable. If you can't make it, pass your ticket to a mate and let them have the night of their life instead. Born free means free to hand it over.",
   },
 ]
 
-function FaqItem({
-  item,
-  isOpen,
-  onToggle,
-}: {
-  item: FaqItem
-  isOpen: boolean
-  onToggle: () => void
-}) {
+const FaqItem = ({ item, index }: { item: (typeof FAQS)[number]; index: number }) => {
+  const [open, setOpen] = useState(false)
+
   return (
-    <div className="border-b-2 border-black py-4 md:py-6">
+    <div className="bg-card border-2 border-border px-4 md:px-6">
       <button
-        onClick={onToggle}
-        className="w-full flex justify-between items-center gap-4 text-left hover:opacity-80 transition-opacity"
+        onClick={() => setOpen((o) => !o)}
+        className="w-full flex items-center justify-between text-left gap-4 py-4 md:py-5 hover:no-underline"
+        aria-expanded={open}
+        aria-controls={`faq-${index}`}
       >
-        <h3 className="text-lg md:text-xl font-bold uppercase flex-1">
-          {item.question}
-        </h3>
+        <span className="font-black uppercase text-base md:text-2xl leading-snug">{item.q}</span>
         <span
-          className={`text-2xl md:text-3xl font-bold transition-transform duration-300 flex-shrink-0 ${
-            isOpen ? 'rotate-45' : 'rotate-0'
-          }`}
+          className="text-2xl font-black shrink-0 transition-transform duration-200"
+          style={{ transform: open ? 'rotate(45deg)' : 'rotate(0deg)' }}
         >
           +
         </span>
       </button>
-
-      {isOpen && (
-        <div className="mt-4 md:mt-6 text-base md:text-lg font-medium text-gray-700">
-          {item.answer}
+      {open && (
+        <div id={`faq-${index}`} className="text-base md:text-lg font-bold leading-snug pb-4 md:pb-5">
+          {item.a}
         </div>
       )}
     </div>
   )
 }
 
-export default function FaqSection() {
-  const [openId, setOpenId] = useState<string | null>(null)
-
+const FaqSection = () => {
   return (
-    <section className="relative w-full bg-white py-12 md:py-24 px-4 md:px-8">
-      <ScatteredStars />
-
-      <div className="max-w-3xl mx-auto">
-        <div className="mb-12 md:mb-16">
-          <h2 className="text-3xl md:text-5xl font-bold uppercase tracking-tight mb-4">
-            Got Questions?
-          </h2>
-          <p className="text-lg md:text-xl font-semibold">
-            Answers to the most common questions about tickets and events
-          </p>
-        </div>
-
-        <div className="border-t-4 border-black">
-          {FAQ_ITEMS.map((item) => (
-            <FaqItem
-              key={item.id}
-              item={item}
-              isOpen={openId === item.id}
-              onToggle={() => setOpenId(openId === item.id ? null : item.id)}
-            />
+    <section
+      className="relative py-12 md:py-24 px-4 md:px-16 border-b-4 border-divider"
+      style={{ backgroundColor: '#FFFFFF' }}
+    >
+      <h2 className="text-4xl md:text-8xl font-black uppercase text-center mb-8 md:mb-16 text-foreground leading-none tracking-tighter">
+        Need to Know 🇺🇸
+      </h2>
+      <div className="max-w-4xl mx-auto">
+        <div className="space-y-3 md:space-y-4">
+          {FAQS.map((faq, i) => (
+            <FaqItem key={i} item={faq} index={i} />
           ))}
         </div>
       </div>
     </section>
   )
 }
+
+export default FaqSection

@@ -1,101 +1,110 @@
 import { useState, useMemo } from 'react'
 import { PROPERTIES, COUNTRIES, type CountryFilter } from '@/data/properties'
-import ScatteredStars from './ScatteredStars'
+import ScatteredStars from '@/components/ScatteredStars'
 
-export default function PropertySelector() {
+const PropertySelector = () => {
   const [filter, setFilter] = useState<CountryFilter>('All')
   const [searchTerm, setSearchTerm] = useState('')
 
   const filteredProperties = useMemo(() => {
-    return PROPERTIES.filter((prop) => {
-      const matchesCountry = filter === 'All' || prop.country === filter
+    return PROPERTIES.filter((p) => {
+      const matchesCountry = filter === 'All' || p.country === filter
       const matchesSearch =
-        searchTerm === '' ||
-        prop.name.toLowerCase().includes(searchTerm.toLowerCase())
+        p.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        p.country.toLowerCase().includes(searchTerm.toLowerCase())
       return matchesCountry && matchesSearch
     })
   }, [filter, searchTerm])
 
   return (
-    <section className="relative w-full bg-white py-12 md:py-24 px-4 md:px-8">
+    <section
+      id="selector"
+      className="relative py-12 md:py-24 overflow-hidden"
+      style={{ backgroundColor: '#1B2A5C' }}
+    >
       <ScatteredStars />
+      <div className="px-4 md:px-16 max-w-7xl mx-auto">
+        <h2 className="text-3xl md:text-8xl font-black uppercase mb-6 md:mb-8 text-white text-center md:text-left leading-none">
+          Pick your<br className="md:hidden" /> 4th of July<br className="md:hidden" /> spot 🇺🇸
+        </h2>
 
-      <div className="max-w-6xl mx-auto">
-        {/* Header */}
-        <div className="mb-12 md:mb-16">
-          <h2 className="text-3xl md:text-5xl font-bold uppercase tracking-tight mb-4">
-            Pick Your Destination
-          </h2>
-          <p className="text-lg md:text-xl font-semibold max-w-2xl">
-            23 epic locations across Southeast Asia
-          </p>
+        <div className="sticky top-0 z-20 py-3 md:py-4" style={{ backgroundColor: '#1B2A5C' }}>
+          <div className="flex flex-col gap-4 md:gap-6">
+            <input
+              type="text"
+              placeholder="SEARCH LOCATION..."
+              className="w-full p-4 md:p-6 text-lg md:text-2xl font-black border-2 border-border uppercase outline-none focus:bg-card bg-card"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+            <div className="flex overflow-x-auto pb-3 md:pb-4 gap-2 md:gap-4 no-scrollbar">
+              {COUNTRIES.map((country) => (
+                <button
+                  key={country}
+                  onClick={() => setFilter(country)}
+                  className={`whitespace-nowrap px-4 md:px-8 py-2 md:py-3 font-black uppercase text-sm md:text-lg border-2 border-border transition-all ${
+                    filter === country
+                      ? 'bg-primary text-primary-foreground translate-x-1 translate-y-1 shadow-none'
+                      : 'bg-card text-foreground hover:translate-x-1 hover:translate-y-1 hover:shadow-none'
+                  }`}
+                >
+                  {country}
+                </button>
+              ))}
+            </div>
+          </div>
         </div>
 
-        {/* Search bar */}
-        <div className="mb-8 md:mb-10">
-          <input
-            type="text"
-            placeholder="Search by location..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full px-4 md:px-6 py-3 md:py-4 border-4 border-black rounded-none bg-white text-black placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#CC2200] font-semibold"
-          />
-        </div>
-
-        {/* Country filters */}
-        <div className="mb-8 md:mb-12 flex gap-2 md:gap-3 overflow-x-auto pb-2 no-scrollbar">
-          {COUNTRIES.map((country) => (
-            <button
-              key={country}
-              onClick={() => setFilter(country)}
-              className={`px-4 md:px-6 py-2 md:py-3 border-2 border-black rounded-none font-bold uppercase whitespace-nowrap transition-all duration-200 ${
-                filter === country
-                  ? 'bg-[#CC2200] text-white shadow-md'
-                  : 'bg-white text-black hover:bg-gray-100'
-              }`}
-            >
-              {country}
-            </button>
-          ))}
-        </div>
-
-        {/* Properties grid */}
-        {filteredProperties.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-            {filteredProperties.map((prop) => (
+        <div className="mt-6 md:mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8 relative z-10">
+          {filteredProperties.length > 0 ? (
+            filteredProperties.map((prop) => (
               <div
                 key={prop.id}
-                className="bg-white border-4 border-black rounded-none p-6 md:p-8 shadow-sm hover:shadow-md transition-all duration-200"
+                className="bg-card border-2 border-border flex flex-col p-5 md:p-8 brutalist-card-hover group"
               >
-                <div className="flex flex-col h-full">
-                  <div className="mb-4">
-                    <span className="inline-block bg-[#1B2A5C] text-white px-3 py-1 border-2 border-black rounded-none text-xs font-bold uppercase">
-                      {prop.country}
-                    </span>
-                  </div>
-                  <h3 className="text-2xl md:text-3xl font-bold uppercase mb-6 flex-grow">
-                    {prop.name}
-                  </h3>
-                  <button className="w-full px-4 py-3 bg-[#CC2200] text-white border-2 border-black rounded-none font-bold uppercase shadow-sm hover:shadow-md transition-all duration-200">
-                    {prop.url ? 'GET ACCESS' : 'COMING SOON'}
-                  </button>
+                <div className="flex justify-between items-start mb-4 md:mb-6">
+                  <span className="bg-primary text-primary-foreground px-2 md:px-3 py-1 text-xs font-black uppercase">
+                    {prop.country}
+                  </span>
+                  <span className="font-black uppercase text-xs animate-pulse" style={{ color: '#CC2200' }}>
+                    🇺🇸 4TH OF JULY
+                  </span>
                 </div>
+                <h3 className="text-2xl md:text-3xl font-black uppercase mb-6 md:mb-12 flex-grow whitespace-nowrap overflow-hidden text-ellipsis group-hover:text-red-700 transition-colors">
+                  {prop.name}
+                </h3>
+                {prop.url ? (
+                  <a
+                    href={prop.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block w-full text-center bg-primary text-primary-foreground font-black uppercase py-3 md:py-4 border-2 border-border text-sm md:text-base hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all"
+                  >
+                    GET ACCESS 🇺🇸
+                  </a>
+                ) : (
+                  <span
+                    className="block w-full text-center text-white font-black uppercase py-3 md:py-4 border-2 border-border text-sm md:text-base cursor-not-allowed"
+                    style={{ backgroundColor: '#0f1a3a' }}
+                  >
+                    COMING SOON
+                  </span>
+                )}
               </div>
-            ))}
-          </div>
-        ) : (
-          <div className="text-center py-12">
-            <p className="text-lg md:text-xl font-semibold text-gray-600">
-              No parties found. Try a different location.
-            </p>
-          </div>
-        )}
+            ))
+          ) : (
+            <div className="col-span-full py-12 md:py-20 text-center">
+              <p className="text-2xl md:text-4xl font-black uppercase text-white">Nothing found. Try another spot.</p>
+            </div>
+          )}
+        </div>
 
-        {/* Results count */}
-        <div className="mt-8 md:mt-12 text-center text-sm md:text-base font-semibold text-gray-600">
+        <div className="mt-8 md:mt-12 text-center text-xs md:text-sm font-bold uppercase tracking-widest text-white/60 relative z-10">
           Showing {filteredProperties.length} of {PROPERTIES.length} destinations
         </div>
       </div>
     </section>
   )
 }
+
+export default PropertySelector

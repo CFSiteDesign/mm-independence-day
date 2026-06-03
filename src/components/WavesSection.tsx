@@ -1,115 +1,104 @@
-import { useState, useEffect } from 'react'
-import { useInView } from 'react-intersection-observer'
+import { useEffect, useRef, useState } from 'react'
+import ScatteredStars from '@/components/ScatteredStars'
 import { getAsset } from '@/lib/images'
-import ScatteredStars from './ScatteredStars'
 
-interface Card {
-  id: string
-  title: string
-  description: string
-  image: string
-  badge: string
-}
+const cardFireworks = getAsset('card-fireworks.png')
+const cardBbq = getAsset('card-bbq.png')
+const cardFreeflow = getAsset('card-freeflow.png')
 
-const CARDS: Card[] = [
+const CARDS = [
   {
-    id: 'fireworks',
+    image: cardFireworks,
     title: 'Fireworks Spectacular',
-    description: "The sky's our canvas and we paint it loud. Our rooftop finale will rattle your chest.",
-    image: 'card-fireworks.png',
-    badge: '🎆 FIREWORKS',
+    description:
+      "The sky's our canvas and we paint it loud. Our rooftop finale will rattle your chest and blow your mind.",
+    badge: 'Blow It Up',
+    rotation: 'rotate-2',
   },
   {
-    id: 'bbq',
+    image: cardBbq,
     title: 'Freedom BBQ',
-    description: 'All-American cookout energy, Southeast Asia style. Burgers, dogs, everything off the grill.',
-    image: 'card-bbq.png',
-    badge: '🔥 BBQ',
+    description:
+      "Grills fired up, plates piled high. All-American cookout energy, Southeast Asia style — no holding back.",
+    badge: 'Fire It Up',
+    rotation: '-rotate-2',
   },
   {
-    id: 'freeflow',
+    image: cardFreeflow,
     title: 'Stars & Stripes Free Flow',
-    description: 'Drinks flow free until the stars come out. Red, white, and brewed.',
-    image: 'card-freeflow.png',
-    badge: '🍺 FREE FLOW',
+    description:
+      "Drinks flow free until the stars come out. Red, white, and brewed. Keep your cup up.",
+    badge: 'Pour It Up',
+    rotation: '-rotate-1',
   },
 ]
 
-function EventCard({ card }: { card: Card }) {
-  const { ref, inView } = useInView({
-    threshold: 0.6,
-    triggerOnce: true,
-  })
-
-  const [cardImage, setCardImage] = useState<string | undefined>(undefined)
+const EventCard = ({ card }: { card: (typeof CARDS)[number] }) => {
+  const ref = useRef<HTMLDivElement>(null)
+  const [isVisible, setIsVisible] = useState(false)
 
   useEffect(() => {
-    setCardImage(getAsset(card.image))
-  }, [card.image])
+    const el = ref.current
+    if (!el) return
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsVisible(entry.isIntersecting),
+      { threshold: 0.6 }
+    )
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [])
 
   return (
     <div
       ref={ref}
-      className={`bg-[#1B2A5C] border-4 border-black rounded-none overflow-hidden shadow-md card-hover transition-all duration-300 ${
-        inView ? 'opacity-100' : 'opacity-50'
-      }`}
+      className="bg-card border-2 border-border p-4 md:p-6 group transition-transform hover:-translate-y-2 relative overflow-visible"
     >
-      {/* Image */}
-      <div className="relative h-48 md:h-64 overflow-hidden bg-black">
-        {cardImage ? (
+      <div className="aspect-video border-2 border-border mb-4 md:mb-6 overflow-hidden bg-muted">
+        {card.image ? (
           <img
-            src={cardImage}
+            src={card.image}
             alt={card.title}
-            className={`w-full h-full object-cover transition-all duration-300 ${
-              inView ? 'grayscale-0' : 'grayscale'
-            }`}
+            className={`w-full h-full object-cover group-hover:scale-105 transition-all duration-700 md:grayscale md:group-hover:grayscale-0 ${
+              isVisible ? 'grayscale-0 scale-105' : 'grayscale'
+            } md:scale-100`}
           />
         ) : (
-          <div className="w-full h-full bg-gradient-to-br from-[#1B2A5C] to-black flex items-center justify-center text-3xl">
-            {card.badge.split(' ')[0]}
+          <div className="w-full h-full bg-muted flex items-center justify-center">
+            <span className="text-7xl md:text-8xl select-none opacity-40">🎆</span>
           </div>
         )}
-
-        {/* Badge overlay */}
-        <div className="absolute top-3 right-3 bg-[#CC2200] text-white px-3 py-1 border-2 border-black rounded-none transform rotate-6 text-xs font-bold uppercase">
-          {card.badge}
-        </div>
       </div>
-
-      {/* Content */}
-      <div className="p-4 md:p-6 space-y-2">
-        <h3 className="text-xl md:text-2xl font-bold uppercase tracking-tight text-white">
-          {card.title}
-        </h3>
-        <p className="text-sm md:text-base font-medium opacity-90 text-white">
-          {card.description}
-        </p>
+      <h3 className="text-2xl md:text-3xl font-black uppercase mb-2 md:mb-3">{card.title}</h3>
+      <p className="text-base md:text-lg font-bold leading-snug">{card.description}</p>
+      <div
+        className={`mt-4 md:mt-6 inline-block bg-primary text-primary-foreground px-3 py-1 text-sm font-black uppercase ${card.rotation}`}
+      >
+        {card.badge}
       </div>
     </div>
   )
 }
 
-export default function WavesSection() {
+const WavesSection = () => {
   return (
-    <section className="relative w-full bg-[#F5EDD8] py-12 md:py-24 px-4 md:px-8">
+    <section
+      className="relative py-12 md:py-24 px-4 md:px-16 border-b-4 border-divider overflow-hidden"
+      style={{ backgroundColor: '#CC2200' }}
+    >
       <ScatteredStars />
-
-      <div className="max-w-6xl mx-auto">
-        <div className="mb-12 md:mb-16">
-          <h2 className="text-3xl md:text-5xl font-bold uppercase tracking-tight mb-4">
-            What's the Damage
-          </h2>
-          <p className="text-lg md:text-xl font-semibold max-w-2xl">
-            Three events. One night. Zero excuses.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
-          {CARDS.map((card) => (
-            <EventCard key={card.id} card={card} />
-          ))}
-        </div>
+      <h2 className="relative z-10 text-4xl md:text-8xl font-black uppercase text-center mb-8 md:mb-16 text-white leading-none tracking-tighter">
+        What's the Damage 🎆
+      </h2>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-12 max-w-7xl mx-auto relative z-10">
+        {CARDS.map((card) => (
+          <EventCard key={card.title} card={card} />
+        ))}
       </div>
+      <p className="mt-8 md:mt-12 text-center text-base md:text-xl font-black uppercase text-white max-w-3xl mx-auto leading-snug relative z-10">
+        Every property runs 4th of July a little differently — check your hostel's lineup before booking.
+      </p>
     </section>
   )
 }
+
+export default WavesSection
