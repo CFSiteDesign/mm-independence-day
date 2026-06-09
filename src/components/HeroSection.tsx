@@ -9,12 +9,12 @@ const floatingEl = getAsset('el-bolt.png')
 
 const HeroSection = () => {
   return (
-    <section className="relative z-10 w-full min-h-[100svh] md:min-h-0 flex flex-col md:flex-row border-b-4 border-divider overflow-visible">
+    <section className="relative z-10 w-full min-h-[100svh] md:min-h-0 md:h-[85vh] flex flex-col md:flex-row border-b-4 border-divider overflow-visible">
       <ScatteredStars />
 
       {/* Left — text + 4th of July logo */}
       <div
-        className="flex-1 px-5 pt-6 pb-8 md:px-10 md:py-8 flex flex-col justify-center items-start border-b-4 md:border-b-0 md:border-r-4 border-divider relative overflow-hidden"
+        className="flex-1 px-5 pt-6 pb-8 md:px-10 md:py-6 flex flex-col justify-center items-start border-b-4 md:border-b-0 md:border-r-4 border-divider relative overflow-hidden"
         style={{ backgroundColor: '#1B2A5C' }}
       >
         <div
@@ -54,7 +54,7 @@ const HeroSection = () => {
           <img
             src={heroLogo}
             alt="4th of July"
-            className="w-full max-w-md md:max-w-lg lg:max-w-xl mt-3 md:mt-3 mb-2 md:mb-3 z-10 self-center"
+            className="w-full max-w-md md:max-w-md lg:max-w-lg mt-2 md:mt-2 mb-1 md:mb-2 z-10 self-center"
             style={{ mixBlendMode: 'screen' }}
           />
         ) : (
@@ -68,7 +68,7 @@ const HeroSection = () => {
           </div>
         )}
 
-        <p className="text-[13px] md:text-base font-bold mb-4 md:mb-6 max-w-xl leading-relaxed z-10 text-white/90">
+        <p className="text-[13px] md:text-base font-bold mb-3 md:mb-4 max-w-xl leading-relaxed z-10 text-white/90">
           Stars, stripes, and shots across Southeast Asia.<br />
           One night. Every hostel. Zero apologies.<br />
           Mad Monkey 4th of July — All In. 🇺🇸
