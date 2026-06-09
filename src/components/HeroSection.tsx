@@ -54,7 +54,7 @@ const HeroSection = () => {
           <img
             src={heroLogo}
             alt="4th of July"
-            className="w-full max-w-md md:max-w-md lg:max-w-lg md:max-h-[40vh] object-contain mt-2 md:mt-2 mb-1 md:mb-2 z-10 self-center"
+            className="w-full max-w-md md:max-w-lg lg:max-w-xl md:max-h-[52vh] object-contain mt-2 md:mt-2 mb-1 md:mb-8 z-10 self-center"
             style={{ mixBlendMode: 'screen' }}
           />
         ) : (
