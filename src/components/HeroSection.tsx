@@ -54,7 +54,7 @@ const HeroSection = () => {
           <img
             src={heroLogo}
             alt="4th of July"
-            className="w-full max-w-md md:max-w-md lg:max-w-lg mt-2 md:mt-2 mb-1 md:mb-2 z-10 self-center"
+            className="w-full max-w-md md:max-w-md lg:max-w-lg md:max-h-[40vh] object-contain mt-2 md:mt-2 mb-1 md:mb-2 z-10 self-center"
             style={{ mixBlendMode: 'screen' }}
           />
         ) : (
@@ -84,7 +84,7 @@ const HeroSection = () => {
 
       {/* Right — bg-main.png behind, hero photo in the framed box */}
       <div
-        className="flex-1 relative flex items-center justify-center md:items-start md:justify-center md:pt-10 min-h-[300px] md:min-h-0 overflow-hidden"
+        className="flex-1 relative flex items-center justify-center min-h-[300px] md:min-h-0 overflow-hidden"
         style={{ backgroundColor: '#FFFFFF' }}
       >
         {/* Full-cover background */}
