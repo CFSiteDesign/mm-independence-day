@@ -14,7 +14,7 @@ const HeroSection = () => {
 
       {/* Left — text + 4th of July logo */}
       <div
-        className="flex-1 px-5 pt-6 pb-8 md:px-10 md:py-6 flex flex-col justify-center items-start border-b-4 md:border-b-0 md:border-r-4 border-divider relative overflow-hidden"
+        className="flex-1 px-5 pt-6 pb-8 md:px-10 md:pt-8 md:pb-6 flex flex-col justify-center md:justify-start items-start border-b-4 md:border-b-0 md:border-r-4 border-divider relative overflow-hidden"
         style={{ backgroundColor: '#1B2A5C' }}
       >
         <div
@@ -84,7 +84,7 @@ const HeroSection = () => {
 
       {/* Right — bg-main.png behind, hero photo in the framed box */}
       <div
-        className="flex-1 relative flex items-center justify-center min-h-[300px] md:min-h-0 overflow-hidden"
+        className="flex-1 relative flex items-center justify-center md:items-start md:justify-center md:pt-10 min-h-[300px] md:min-h-0 overflow-hidden"
         style={{ backgroundColor: '#FFFFFF' }}
       >
         {/* Full-cover background */}
