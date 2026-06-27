@@ -35,7 +35,7 @@ export const PROPERTIES: Property[] = [
   { id: 'nusa-lembongan', name: 'Nusa Lembongan', country: 'Indonesia', url: 'https://madmonkeyhostels.com/tours-events/4th-of-july-event-mad-monkey-nusa-lembongan' },
   { id: 'uluwatu', name: 'Uluwatu', country: 'Indonesia', url: 'https://madmonkeyhostels.com/tours-events/4th-of-july-event-mad-monkey-uluwatu' },
   { id: 'luang-prabang', name: 'Luang Prabang', country: 'Laos', url: '' },
-  { id: 'vang-vieng', name: 'Vang Vieng', country: 'Laos', url: 'https://madmonkeyhostels.com/tours-events/4th-july-foam-party' },
+  { id: 'vang-vieng', name: 'Vang Vieng', country: 'Laos', url: '' },
   { id: 'dumaguete', name: 'Dumaguete', country: 'Philippines', url: 'https://madmonkeyhostels.com/tours-events/july-4th-event-mad-monkey-dumaguete' },
   { id: 'manila', name: 'Manila', country: 'Philippines', url: 'https://madmonkeyhostels.com/tours-events/july-4th-event-mad-monkey-manila' },
   { id: 'nacpan-beach', name: 'Nacpan Beach', country: 'Philippines', url: 'https://madmonkeyhostels.com/tours-events/july-4th-event-mad-monkey-nacpan' },
@@ -47,5 +47,5 @@ export const PROPERTIES: Property[] = [
   { id: 'pai', name: 'Pai', country: 'Thailand', url: 'https://madmonkeyhostels.com/tours-events/4th-of-july-event-mad-monkey-pai' },
   { id: 'phuket', name: 'Phuket', country: 'Thailand', url: 'https://madmonkeyhostels.com/tours-events/4th-of-july-event-mad-monkey-phuket' },
   { id: 'hanoi', name: 'Hanoi', country: 'Vietnam', url: 'https://madmonkeyhostels.com/tours-events/hanoi-old-quarter-s-biggest-4th-of-july-event' },
-  { id: 'hoi-an', name: 'Hoi An', country: 'Vietnam', url: '' },
+  { id: 'hoi-an', name: 'Hoi An', country: 'Vietnam', url: 'https://madmonkeyhostels.com/tours-events/4th-july-foam-party' },
 ]
